@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router';
 // import HomeComponent from '@/components/HomeComponent.vue';
+import { practiceRouter } from './PracticeRouter';
 import { memberRouter } from './memberRouter';
 import { productRouter } from './productRouter';
 import { orderRouter } from './orderRouter';
@@ -10,6 +11,7 @@ const routes = [
     //     name: 'HomeComponent',
     //     component: HomeComponent
     // },
+    ...practiceRouter,
     ...memberRouter,
     ...productRouter,
     ...orderRouter

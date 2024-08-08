@@ -19,7 +19,7 @@
                 </v-form>
             </v-col>
             <v-col v-if="!isAdmin" cols="auto">
-                <v-btn color="secondary" class="mr-2">장바구니</v-btn>
+                <v-btn @click="addCart" color="secondary" class="mr-2">장바구니</v-btn>
                 <v-btn color="success" @click="createOrder">주문하기</v-btn>
             </v-col>
             <v-col v-if="isAdmin" cols="auto">
@@ -77,8 +77,13 @@
 
 <script>
 import axios from 'axios'
+import { mapGetters } from 'vuex';
+
 export default {
     props: ['isAdmin', 'pageTitle'],
+    computed:{
+        ...mapGetters(['getProductsInCart']),
+    },
     data() {
         return {
             searchType: 'optional',
@@ -168,6 +173,16 @@ export default {
             if(isBottom && !this.isLastPage && !this.isLoading){ // 데이터가 불러오는 속도가 더 빠르면안된다.
                 this.loadProduct();
             } 
+        },
+        addCart(){
+            const orderProducts = Object.keys(this.selected).filter(key=>this.selected[key])
+                                        .map(key=>{
+                                            const product = this.productList.find(p=>p.id==key)
+                                            return {id:product.id,name:product.name,quantity:product.quantity};
+                                        });
+            orderProducts.forEach(p=>this.$store.dispatch('addCart', p));
+            console.log(this.getProductsInCart);
+            // window.location.reload();
         },
         async createOrder(){
             const orderProducts = Object.keys(this.selected).filter(key=>this.selected[key])

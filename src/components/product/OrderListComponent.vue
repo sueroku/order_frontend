@@ -54,9 +54,11 @@ export default{
         try{
             if(this.isAdmin){
                 const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/order/list`);
+                console.log(response.data.result.content)
                 this.orderList = response.data.result.content;
             }else{
                 const response = await axios.get(`${process.env.VUE_APP_API_BASE_URL}/order/myorders`);
+                console.log(response)
                 this.orderList = response.data.result.content;
             }
             

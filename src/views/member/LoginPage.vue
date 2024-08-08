@@ -57,6 +57,8 @@ export default{
                 localStorage.setItem('token', token); 
                 localStorage.setItem('refreshToken', refreshToken);
                 localStorage.setItem('role', role);
+                // sse를 위한 연결 코드
+                
                 window.location.href="/";
             }catch(e){
                 const error_message = e.response.data.error_message;
